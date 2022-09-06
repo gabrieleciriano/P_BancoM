@@ -10,8 +10,9 @@ namespace Proj_BancoMorangao
     {
         public int Cargo { get; set; }
 
-        public Agencia agencia;
-        public bool EhGerente { get; set; }
+        public int agencia;
+       
+
 
 
 
@@ -31,6 +32,7 @@ namespace Proj_BancoMorangao
             }
             return null;
         }
+
         public void AprovarConta()
         {
             foreach (var cliente in AprovaCliente)
@@ -42,7 +44,13 @@ namespace Proj_BancoMorangao
                     if (aprova == 1)
                     {
                         Console.WriteLine("CONTA APROVADA!");
+                        //gerar um numero aleatorio aq
+                        //instanciar uma nova conta e gerar o número
                         cliente.conta.Aprovado = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("CONTA REPROVADA");
                     }
                 }
             }
@@ -50,47 +58,42 @@ namespace Proj_BancoMorangao
         }
 
 
-        public void AprovarAberturaConta(Cliente cliente)
-        {
-            cliente.setAprovado(true);
 
 
-        }
+        //public void AprovarAberturaConta(Cliente cliente)
+        //{
+        //    cliente.setAprovado(true);
 
 
+        //}
+
+        //REALIZANDO O CADASTRO DO FUNCIONÁRIO DENTRO DE UM MÉTODO CONSTRUTOR
         public Funcionario()
         {
-            agencia = new Agencia();
+
             Console.WriteLine("Efetuando o cadastro do funcionário...");
             Console.WriteLine("Informe seu nome: ");
-            Nome = Console.ReadLine();
+            this.Nome = Console.ReadLine();
             Console.WriteLine("Informe seu CPF: ");
-            Cpf = Console.ReadLine();
+            this.Cpf = Console.ReadLine();
             Console.WriteLine("informe seu RG: ");
-            Rg = Console.ReadLine();
-            do
+            this.Rg = Console.ReadLine();
+            int op;
+            Console.WriteLine("Por fim, o mais importante, informe seu CARGO (1- FUNCIONÁRIO REGULAR 2 - GERENTE)");
+            op = int.Parse(Console.ReadLine());
+            if (op == 1)
             {
-                Console.WriteLine("Por fim, o mais importante, informe seu CARGO (1- FUNCIONÁRIO REGULAR 2 - GERENTE)");
-                Cargo = int.Parse(Console.ReadLine());
-                if (Cargo == 1)
-                {
-                    Console.WriteLine($"{Cargo} FUNCIONÁRIO REGULAR ");
-                    this.Cargo = 1;
-                }
-                else if (Cargo == 2)
-                {
-                    Console.WriteLine($"{Cargo} GERENTE");
-                    this.Cargo = 2;
-                }
-                else
-                {
-                    Console.WriteLine("OPÇÃO INVÁLIDA! Infome 1 ou 2");
-                }
-
-            } while (Cargo != 1 || Cargo != 2);
-
-
+                Console.WriteLine($"{op} FUNCIONÁRIO REGULAR ");
+                this.Cargo = 1;
+            }
+            else
+            {
+                Console.WriteLine($"{op} GERENTE");
+                this.Cargo = 2;
+            }
         }
+
+        //IMPRIMINDO OS DADOS CADASTRADOS DO FUNCIONÁRIO
         public override string ToString()
         {
             return $"Nome: {Nome} \nCpf: {Cpf} \nRg: {Rg} \nCargo: {Cargo}".ToString();

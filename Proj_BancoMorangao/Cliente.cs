@@ -10,13 +10,14 @@ namespace Proj_BancoMorangao
         public string Perfil { get; set; }
         public bool Aprovado { get; set; }
 
+
         public Conta conta;
 
 
         public Cliente()
         {
             end = new Endereco();
-            conta = new Conta();
+            //conta = new Conta(TipoConta);
             Console.WriteLine("Informe seu nome: ");
             Nome = Console.ReadLine();
             Console.WriteLine("Informe sua data de nascimento: ");
@@ -46,19 +47,14 @@ namespace Proj_BancoMorangao
             return $"Nome: {Nome} \nData de Nascimento: {DataNascimento} \nEndereço: Rua ou Avenida: {end.Rua} \nNúmero: {end.Numero} \nBairro: {end.Bairro} \nCidade: {end.Cidade} \nEstado {end.Estado} \nTelefone: {Telefone} \nCpf: {Cpf} \nRg: {Rg}".ToString();
         }
 
-        public void ImprimirCadCliente()
-        {
-            Console.WriteLine($"Nome: {Nome} \nData de Nascimento: {DataNascimento} \nEndereço: Rua ou Avenida: {end.Rua} \nNúmero: {end.Numero} \nBairro: {end.Bairro} \nCidade: {end.Cidade} \nEstado {end.Estado} \nTelefone: {Telefone} \nCpf: {Cpf} \nRg: {Rg}");
+        
 
-        }
-
-
-        public void setAprovado(bool valor)
-        {
-            Aprovado = valor;
+        //public void setAprovado(bool valor)
+        //{
+        //    Aprovado = valor;
 
 
-        }
+        //}
 
         public void SolicitarAberturaConta()
         {
