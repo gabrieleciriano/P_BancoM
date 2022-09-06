@@ -17,7 +17,6 @@ namespace Proj_BancoMorangao
             //ContaCorrente cc = new ContaCorrente();
             //ContaPoupanca cp = new ContaPoupanca();
 
-
             MenuPrincipal();
 
 
@@ -75,9 +74,9 @@ namespace Proj_BancoMorangao
                 Console.Clear();
                 Console.WriteLine("----------BEM VINDO AO MENU DO CLIENTE------------------------------");
                 Console.WriteLine("0 - SAIR");
-                Console.WriteLine("1 - SOLICITAR ABERTURA DE CONTA");
-                //CHAMAR O MENU DE CONTA AQUI
-                Console.WriteLine("2 - ACESSAR CONTA");
+                Console.WriteLine("1 - VOLTAR AO MENU PRINCIPAL");
+                Console.WriteLine("2 - SOLICITAR ABERTURA DE CONTA");
+                Console.WriteLine("3 - ACESSAR CONTA");
                 Console.WriteLine("--------------------------------------------------------------------");
                 Console.WriteLine("Digite a opção desejada: ");
                 opc = int.Parse(Console.ReadLine());
@@ -91,9 +90,12 @@ namespace Proj_BancoMorangao
                             Console.WriteLine("SAINDO ...");
                             break;
                         case 1:
-                            cliente.SolicitarAberturaConta();
+                            MenuPrincipal();                           
                             break;
                         case 2:
+                            cliente.SolicitarAberturaConta();
+                            break;
+                        case 3:
                             MenuConta();
                             //metodo de acessar conta
                             break;
@@ -113,10 +115,11 @@ namespace Proj_BancoMorangao
                 Console.WriteLine("--------------------------------------------------------------------");
                 Console.WriteLine("------------------MENU DO FUNCIONÁRIO REGULAR-----------------------");
                 Console.WriteLine("0 - SAIR");
-                Console.WriteLine("1 - CADASTRAR FUNCIONÁRIO");
-                Console.WriteLine("2 - IMPRIMIR CADASTRO COM O CARGO");
-                Console.WriteLine("3 - CADASTRAR CLIENTE");
-                Console.WriteLine("4 - IMPRIMIR CADASTRO DE CLIENTE");
+                Console.WriteLine("1 - VOLTAR AO MENU PRINCIPAL");
+                Console.WriteLine("2 - CADASTRAR FUNCIONÁRIO");
+                Console.WriteLine("3 - IMPRIMIR CADASTRO COM O CARGO");
+                Console.WriteLine("4 - CADASTRAR CLIENTE");
+                Console.WriteLine("5 - IMPRIMIR CADASTRO DE CLIENTE");
                 Console.WriteLine("--------------------------------------------------------------------");
                 Console.WriteLine("Digite a opção desejada: ");
                 opc = int.Parse(Console.ReadLine());
@@ -130,25 +133,28 @@ namespace Proj_BancoMorangao
                             Console.WriteLine("SAINDO...");
                             break;
                         case 1:
+                            MenuPrincipal();                         
+                            break;
+                        case 2:
                             //cadastrando o funcionario
                             Funcionario funcionario = new Funcionario();
                             agencia.AddListFuncionario(funcionario);
+
                             break;
-                        case 2:
+                        case 3:
                             //imprimir o cadastro                          
                             agencia.GetFuncionario();
                             Console.ReadKey();
                             break;
-                        case 3:
+                        case 4:
                             //cadastrar cliente
                             Cliente cliente = new Cliente();
                             agencia.AddListCliente(cliente);
                             break;
-                        case 4:
+                        case 5:
                             //imprimindo o cadastro do cliente                            
                             agencia.GetCliente();
                             Console.ReadKey();
-
                             break;
                         default:
                             break;
@@ -165,9 +171,10 @@ namespace Proj_BancoMorangao
                 Console.WriteLine("-------------------------------------------------------------");
                 Console.WriteLine("---------------------MENU DO GERENTE ------------------------");
                 Console.WriteLine("0 - SAIR");
-                Console.WriteLine("1 - CADASTRAR FUNCIONÁRIO");
-                Console.WriteLine("2 - IMPRIMIR CADASTRO COM O CARGO");
-                Console.WriteLine("3 - APROVAR ABERTURA DE CONTA");
+                Console.WriteLine("1 - VOLTAR AO MENU PRINCIPAL");
+                Console.WriteLine("2 - CADASTRAR FUNCIONÁRIO");
+                Console.WriteLine("3 - IMPRIMIR CADASTRO COM O CARGO");
+                Console.WriteLine("4 - APROVAR ABERTURA DE CONTA");
                 Console.WriteLine("-------------------------------------------------------------");
                 Console.WriteLine("Digite a opção desejada: ");
                 opc = int.Parse(Console.ReadLine());
@@ -181,14 +188,17 @@ namespace Proj_BancoMorangao
                             Console.WriteLine("SAINDO...");
                             break;
                         case 1:
-                            Funcionario funcionario = new Funcionario();
-                            agencia.AddListFuncionario(funcionario);                          
+                            MenuPrincipal();                                                  
                             break;
                         case 2:
-                            agencia.GetFuncionario();
-                            Console.ReadKey();                                                   
+                            Funcionario funcionario = new Funcionario();
+                            agencia.AddListFuncionario(funcionario);
                             break;
                         case 3:
+                            agencia.GetFuncionario();
+                            Console.ReadKey();
+                            break;
+                        case 4:
                             //chama o get funcionario que esta no objeto agencia trazendo o obj funcionario
                             funcionario = agencia.getFuncionario();
                             //o objeto passa a existir e o metodo de aprovar conta pode ser executadao
@@ -201,34 +211,7 @@ namespace Proj_BancoMorangao
             } while (opc != 0);
 
         }
-        //static void AprovarContaCliente()
-        //{
-        //    string aprovarConta;
-        //    Cliente cliente = funcionario.getCliente();
-
-        //    if (cliente != null)
-        //    {
-        //        //Mostra o cadastro dos dados do cliente
-        //        Console.WriteLine(cliente);
-        //        do
-        //        {
-        //            Console.WriteLine("Deseja aprovar a conta desse cliente ? 1 - APROVAR 2 - RECUSAR :");
-        //            aprovarConta = Console.ReadLine();
-        //        } while (aprovarConta != "1" && aprovarConta != "2");
-        //        if (aprovarConta == "1")
-        //        {
-        //            Console.WriteLine("CONTA APROVADA COM SUCESSO !");
-        //            funcionario.AprovarAberturaConta(cliente);
-
-
-        //        }
-        //        else
-        //            Console.WriteLine("Sentimos muito em informar mas sua solicitação foi RECUSADA!");
-
-        //    }
-        //    else
-        //        Console.WriteLine("Não há nenhum cadastro realizado para ser aprovado!");
-        //}
+          
         static void MenuFuncionario()
         {
             //Funcionario funcionario = new Funcionario();
@@ -237,8 +220,9 @@ namespace Proj_BancoMorangao
             Console.Clear();
             Console.WriteLine("-------------------------------------------------------------------------");
             Console.WriteLine("-------------------MENU DO FUNCIONÁRIO-----------------------------------");
-            Console.WriteLine("--------------DIGITE 0 QUANDO DESEJAR SAIR-------------------------------");
-            Console.WriteLine("INFORME O CARGO QUE IRÁ RECEBER: (1 - FUNCIONÁRIO REGULAR OU 2 - GERENTE)");
+            Console.WriteLine("0 - SAIR");
+            Console.WriteLine("1 - PARA VOLTAR AO MENU PRINCIPAL");             
+            Console.WriteLine("INFORME O CARGO QUE IRÁ RECEBER: (2 - FUNCIONÁRIO REGULAR OU 3 - GERENTE)");
             Console.WriteLine("-------------------------------------------------------------------------");
             Console.WriteLine("Digite a opção: ");
             cargo = int.Parse(Console.ReadLine());
@@ -253,9 +237,12 @@ namespace Proj_BancoMorangao
                     Console.WriteLine("SAINDO...");
                     break;
                 case 1:
-                    MenuFuncionarioRegular();
+                    MenuPrincipal();                   
                     break;
                 case 2:
+                    MenuFuncionarioRegular();
+                    break;
+                case 3:
                     MenuFuncionarioGerente();
                     break;
             }
@@ -293,90 +280,4 @@ namespace Proj_BancoMorangao
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-List<Agencias> agencias = new List<Agencias>();
-Agencias agencia = new Agencias();
-agencia.NumeroAgencia = 001;
-Endereco endereco = new Endereco();
-agencia.endereco = endereco;
-// agencia.endereco.Rua =
-
-
-Funcionarios funcionario = new Funcionarios();
-endereco = new Endereco();
-Console.WriteLine("Efetuando o cadastro do funcionário");
-Console.WriteLine("Informe seu nome: ");
-funcionario.Nome = Console.ReadLine();
-Console.WriteLine("Informe sua data de nascimento: ");
-funcionario.DataNascimento = DateTime.Parse(Console.ReadLine());
-Console.WriteLine("Informe os dados de seu endereço: ");
-Console.WriteLine("Rua: ");
-endereco.Rua = Console.ReadLine();
-Console.WriteLine("Numero: ");
-endereco.Numero = int.Parse(Console.ReadLine());
-Console.WriteLine("Bairro: ");
-endereco.Bairro = Console.ReadLine();
-Console.WriteLine("Cidade: ");
-endereco.Cidade = Console.ReadLine();
-Console.WriteLine("Estado: ");
-endereco.Estado = Console.ReadLine();
-Console.WriteLine("Informe seu telefone com o DDD: ");
-funcionario.Telefone = long.Parse(Console.ReadLine());
-Console.WriteLine("Informe seu CPF: ");
-funcionario.Cpf = Console.ReadLine();
-Console.WriteLine("informe seu RG: ");
-funcionario.Rg = Console.ReadLine();
-*/
-
-
-
-/*
-DateTime DataNascimento = DateTime.Now;
- //1- cadatrar cliente
-//chama o construtor
-Cliente cliente = new Cliente();
-Console.WriteLine(cliente.ToString());
-//2-Cliente Solicitar abertura conta
-cliente.SolicitarAberturaConta(); */
-
-
-
-
-
-
-
-
-
-
-
-//3-Verificar tipo da conta funcionario.VerificarConta()
-//4-Aprovar conta, conta.AbrirConta() tem q ser atributo da conta
-//Aprovar conta funcionario.AprovarConta()
-//5- Movimentar a conta
-//6 - Cadastrar a conta criada
-//menu
-//conta.ConsultarSaldo(), conta.ConsultarExtrato(),conta.Sacar(), conta.Depositar(), conta.Transferir(), conta.EfetuarLogin()
-
-
-
 
