@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Proj_BancoMorangao
@@ -7,16 +8,36 @@ namespace Proj_BancoMorangao
     {
 
         public float Renda { get; set; }
-        public string Perfil { get; set; }
-        public bool Aprovado { get; set; }
+        public bool Perfil { get; set; }
+        public Agencia Agencia;
+        public Conta Conta;
 
-        public Conta conta;
 
-
+        //metodo construtor vazio
         public Cliente()
         {
+
+
+
+        }
+
+        public bool Estudante(string ehUniversitario)
+        {
+            return ehUniversitario switch
+            {
+                "1" => true,
+                _ => false
+
+            };
+        }
+        public void SolicitarAberturaConta()
+        {
+            string TipoConta;
             end = new Endereco();
-            conta = new Conta();
+            //conta = new Conta(TipoConta);
+            //Console.WriteLine("Dados da agencia onde o possível cliente será cadastrado:");
+            //Agencia agencia = new Agencia();
+            //Agencia.ImprimirAgencia();
             Console.WriteLine("Informe seu nome: ");
             Nome = Console.ReadLine();
             Console.WriteLine("Informe sua data de nascimento: ");
@@ -38,62 +59,17 @@ namespace Proj_BancoMorangao
             Cpf = Console.ReadLine();
             Console.WriteLine("informe seu RG: ");
             Rg = Console.ReadLine();
-
-        }
-
-        public override string ToString()
-        {
-            return $"Nome: {Nome} \nData de Nascimento: {DataNascimento} \nEndereço: Rua ou Avenida: {end.Rua} \nNúmero: {end.Numero} \nBairro: {end.Bairro} \nCidade: {end.Cidade} \nEstado {end.Estado} \nTelefone: {Telefone} \nCpf: {Cpf} \nRg: {Rg}".ToString();
-        }
-
-        public void ImprimirCadCliente()
-        {
-            Console.WriteLine($"Nome: {Nome} \nData de Nascimento: {DataNascimento} \nEndereço: Rua ou Avenida: {end.Rua} \nNúmero: {end.Numero} \nBairro: {end.Bairro} \nCidade: {end.Cidade} \nEstado {end.Estado} \nTelefone: {Telefone} \nCpf: {Cpf} \nRg: {Rg}");
-
-        }
-
-
-        public void setAprovado(bool valor)
-        {
-            Aprovado = valor;
-
-
-        }
-
-        public void SolicitarAberturaConta()
-        {
-            string TipoConta;
-
             Console.WriteLine("Informe sua renda mensal: ");
             Renda = float.Parse(Console.ReadLine());
-            Console.WriteLine("Possível cliente, você é ESTUDANTE ? ( 1 - Sim 2 - Nao) ");
-            TipoConta = Console.ReadLine();
-            if (TipoConta == "1")
-            {
-                Console.WriteLine("Entendido, voce é estudante!");
-                Console.WriteLine("Sua solicitação para abrir uma conta será avaliada !");
-                conta = new Conta(TipoConta);
+            //Conta = new Conta(AtribuirTipoConta());
+            Console.WriteLine("Possível cliente, você é ESTUDANTE ? ( 1 - Sim 0 - Nao) ");
+            Perfil = Estudante(Console.ReadLine());
 
-            }
-            else
-            {
-                Console.WriteLine("Entendido, você não é estudante!");
-                Console.WriteLine("Sua solicitação para abrir uma conta será avaliada !");
-                if (Renda <= 5000)
-                {
-
-                    Console.WriteLine("Cliente irá receber uma conta do tipo 2 - NORMAL!");
-                    TipoConta = "2";
-                    conta = new Conta(TipoConta);
-                }
-
-                else
-                {
-                    Console.WriteLine("Cliente, você irá receber uma conta do tipo 3 - VIP!");
-                    TipoConta = "3";
-                    conta = new Conta(TipoConta);
-                }
-            }
+        }
+        public override string ToString()
+        {
+            string situacao = Conta.Aprovado ? "Aprovado" : "Reprovado";
+            return $"Nome: {Nome} \nData de Nascimento: {DataNascimento} \nEndereço: Rua ou Avenida: {end.Rua} \nNúmero: {end.Numero} \nBairro: {end.Bairro} \nCidade: {end.Cidade} \nEstado {end.Estado} \nTelefone: {Telefone} \nCpf: {Cpf} \nRg: {Rg}  \nRenda: {Renda} \nPerfil: {Perfil}\nStatus: {situacao}".ToString();
         }
 
     }

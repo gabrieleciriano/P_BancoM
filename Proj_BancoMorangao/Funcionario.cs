@@ -1,26 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Proj_BancoMorangao
 {
     internal class Funcionario : Pessoa
     {
-        public int Cargo { get; set; }
+        public bool Cargo { get; set; }
+        public Agencia Agencia;
 
-        public Agencia agencia;
-        public bool EhGerente { get; set; }
+        //public int agencia;
 
 
-
-        //Lista criada para adicionar os clientes se forem aprovados p abrir a conta
+        //Lista criada para adicionar os clientes se forem aprovados p abrir a conta (?)
         List<Cliente> AprovaCliente = new List<Cliente>();
 
         public void AddListCliente(Cliente cliente)
         {
-            AprovaCliente.Add(cliente); //metodo da classe lsta que add clientes a lista de aprovação de conta
+            AprovaCliente.Add(cliente); //metodo da classe lista que add clientes a lista de aprovação de conta
         }
 
         public Cliente getCliente()
@@ -31,73 +27,100 @@ namespace Proj_BancoMorangao
             }
             return null;
         }
-        public void AprovarConta()
-        {
-            foreach (var cliente in AprovaCliente)
-            {
-                if (cliente.conta.Aprovado == false)
-                {
-                    Console.WriteLine("Deseja aprovar a conta ? 1 - SIM 2 - NÃO");
-                    int aprova = int.Parse(Console.ReadLine());
-                    if (aprova == 1)
-                    {
-                        Console.WriteLine("CONTA APROVADA!");
-                        cliente.conta.Aprovado = true;
-                    }
-                }
-            }
 
-        }
-
-
-        public void AprovarAberturaConta(Cliente cliente)
-        {
-            cliente.setAprovado(true);
-
-
-        }
-
-
+        //REALIZANDO O CADASTRO DO FUNCIONÁRIO DENTRO DE UM MÉTODO CONSTRUTOR
         public Funcionario()
         {
-            agencia = new Agencia();
+            //Console.WriteLine("Agencia onde irá trabalhar: ");
+            //Agencia agencia = new Agencia();
+            //Agencia.ImprimirAgencia();
             Console.WriteLine("Efetuando o cadastro do funcionário...");
             Console.WriteLine("Informe seu nome: ");
-            Nome = Console.ReadLine();
+            this.Nome = Console.ReadLine();
             Console.WriteLine("Informe seu CPF: ");
-            Cpf = Console.ReadLine();
+            this.Cpf = Console.ReadLine();
             Console.WriteLine("informe seu RG: ");
-            Rg = Console.ReadLine();
-            do
+            this.Rg = Console.ReadLine();
+            int op;
+            Console.WriteLine("Por fim, o mais importante, informe seu CARGO (1- FUNCIONÁRIO REGULAR 2 - GERENTE)");
+            op = int.Parse(Console.ReadLine());
+            if (op == 1)
             {
-                Console.WriteLine("Por fim, o mais importante, informe seu CARGO (1- FUNCIONÁRIO REGULAR 2 - GERENTE)");
-                Cargo = int.Parse(Console.ReadLine());
-                if (Cargo == 1)
-                {
-                    Console.WriteLine($"{Cargo} FUNCIONÁRIO REGULAR ");
-                    this.Cargo = 1;
-                }
-                else if (Cargo == 2)
-                {
-                    Console.WriteLine($"{Cargo} GERENTE");
-                    this.Cargo = 2;
-                }
-                else
-                {
-                    Console.WriteLine("OPÇÃO INVÁLIDA! Infome 1 ou 2");
-                }
+                Console.WriteLine("FUNCIONÁRIO REGULAR ");
+            }
+            else
+            {
+                Console.WriteLine("GERENTE");
+                this.Cargo = true;
 
-            } while (Cargo != 1 || Cargo != 2);
-
-
+            }
         }
+
+        //IMPRIMINDO OS DADOS CADASTRADOS DO FUNCIONÁRIO
         public override string ToString()
         {
             return $"Nome: {Nome} \nCpf: {Cpf} \nRg: {Rg} \nCargo: {Cargo}".ToString();
         }
+        public int AvaliarContaCliente(float renda, bool perfil)
+        {
+            int tipoConta;
 
+            if (perfil)
+            {
+                Console.WriteLine("\nEntendido, voce é ESTUDANTE!");
+                Console.WriteLine("\nSua solicitação para abrir uma conta será avaliada !");
+                Console.WriteLine("\nCliente, ao avaliarmos seu perfil, você poderá receber uma conta (1- UNIVERSITÁRIA)");
+                tipoConta = 1;
+            }
+            else
+            {
+                Console.WriteLine("\nEntendido, você NÃO é ESTUDANTE!");
+                Console.WriteLine("Sua solicitação para abrir uma conta será avaliada !");
+                if (renda <= 3000)
+                {
+                    Console.WriteLine("\nCliente, ao avaliarmos seu perfil, você poderá receber uma conta (2 - NORMAL)");
+                    tipoConta = 2;
+                }
+                else
+                {
+                    Console.WriteLine("Cliente, ao avaliarmos o seu perfil, você poderá receber uma conta (3 - VIP)");
+                    tipoConta = 3;
+                }
+            }
+            return tipoConta;
+        }
+        public bool Estudante(string ehUniversitario)
+        {
+            return ehUniversitario switch
+            {
+                "1" => true,
+                _ => false
+
+            };
+        }
+
+        //Método booleano que se CARGO == true, o funcionário (gerente) pode aprovar conta
+        //Se CARGO == false, esse funcionário não pode realizar essa operação
+        public bool AprovarConta(Cliente contaAprovada)
+        {
+            if (Cargo)
+            {
+                string situacaoContaAprovada = contaAprovada.Conta.Aprovado ? "Aprovado" : "Reprovado";
+                contaAprovada.Conta.Aprovado = true;
+                Console.WriteLine($" SITUAÇÃO DE CONTA: {situacaoContaAprovada}");
+                return contaAprovada.Conta.Aprovado;
+
+            }
+            else
+            {
+                Console.WriteLine("SOMENTE O GERENTE PODE APROVAR UMA CONTA!");
+                return false;
+            }
+
+        }
     }
 }
+
 
 
 
