@@ -176,7 +176,7 @@ namespace Proj_BancoMorangao
             {
                 Console.Clear();
                 Console.WriteLine("-------------------------------------------------------------------");
-                Console.WriteLine("------------------MENU DO FUNCIONÁRIO REGULAR----------------------");          
+                Console.WriteLine("------------------MENU DO FUNCIONÁRIO REGULAR----------------------");
                 Console.WriteLine("1 - VOLTAR AO MENU PRINCIPAL");
                 Console.WriteLine("2 - IMPRIMIR CADASTRO DE CLIENTE");
                 Console.WriteLine("-------------------------------------------------------------------");
@@ -187,7 +187,7 @@ namespace Proj_BancoMorangao
                 else
                 {
                     switch (opc)
-                    {                   
+                    {
                         case 1:
                             MenuPrincipal();
                             break;
@@ -211,7 +211,7 @@ namespace Proj_BancoMorangao
             {
 
                 Console.WriteLine("-------------------------------------------------------------");
-                Console.WriteLine("-----------------------MENU DO GERENTE ----------------------");           
+                Console.WriteLine("-----------------------MENU DO GERENTE ----------------------");
                 Console.WriteLine("1 - VOLTAR AO MENU PRINCIPAL");
                 Console.WriteLine("2 - CADASTRAR FUNCIONÁRIOS");
                 Console.WriteLine("3 - IMPRIMIR CADASTRO COM O CARGO");
@@ -225,7 +225,7 @@ namespace Proj_BancoMorangao
                 {
                     Console.Clear();
                     switch (opc)
-                    {                        
+                    {
                         case 1:
                             MenuPrincipal();
                             break;
@@ -258,11 +258,7 @@ namespace Proj_BancoMorangao
                             Console.WriteLine("Informe o CPF do CLIENTE que deseja aprovar a conta: ");
                             string cpfCliente = Console.ReadLine();
                             Cliente cliente = agencia.GetCliente(cpfCliente);
-                            if (cliente == null)
-                            {
-                                Console.WriteLine("CADASTRO DO CLIENTE NÃO FOI ENCONTRADO!");
-
-                            }
+                            if (cliente == null) Console.WriteLine("CADASTRO DO CLIENTE NÃO FOI ENCONTRADO!");
                             else
                             {
                                 if (funcionario == null)
@@ -278,12 +274,17 @@ namespace Proj_BancoMorangao
                                     if (escolha == 1)
                                     {
 
-                                        cliente.Conta.Aprovado = funcionario.AprovarConta(true);
-
+                                        funcionario.AprovarConta(cliente);
+                                        Console.WriteLine(cliente);
+                                        Console.ReadKey();
+                                        Console.Clear();
                                     }
                                     else
                                     {
-                                        cliente.Conta.Aprovado = funcionario.AprovarConta(false);
+                                        cliente.Conta.Aprovado = false;
+                                        Console.WriteLine(cliente);
+                                        Console.ReadKey();
+                                        Console.Clear();
                                     }
                                 }
                             }
@@ -324,7 +325,7 @@ namespace Proj_BancoMorangao
 
                 case 2:
                     MenuFuncionarioGerente();
-                    break;             
+                    break;
             }
             Console.Clear();
         }
@@ -345,7 +346,7 @@ namespace Proj_BancoMorangao
                 switch (opc)
                 {
                     case 0:
-                        Environment.Exit(0);                       
+                        Environment.Exit(0);
                         break;
 
                     case 1:

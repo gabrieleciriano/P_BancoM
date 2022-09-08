@@ -11,7 +11,7 @@ namespace Proj_BancoMorangao
         public bool Perfil { get; set; }
         public Agencia Agencia;
         public Conta Conta;
-           
+
 
         //metodo construtor vazio
         public Cliente()
@@ -19,8 +19,8 @@ namespace Proj_BancoMorangao
 
 
 
-        }        
-        
+        }
+
         public bool Estudante(string ehUniversitario)
         {
             return ehUniversitario switch
@@ -29,7 +29,7 @@ namespace Proj_BancoMorangao
                 _ => false
 
             };
-        }   
+        }
         public void SolicitarAberturaConta()
         {
             string TipoConta;
@@ -64,11 +64,12 @@ namespace Proj_BancoMorangao
             //Conta = new Conta(AtribuirTipoConta());
             Console.WriteLine("Possível cliente, você é ESTUDANTE ? ( 1 - Sim 0 - Nao) ");
             Perfil = Estudante(Console.ReadLine());
-            
+
         }
         public override string ToString()
         {
-            return $"Nome: {Nome} \nData de Nascimento: {DataNascimento} \nEndereço: Rua ou Avenida: {end.Rua} \nNúmero: {end.Numero} \nBairro: {end.Bairro} \nCidade: {end.Cidade} \nEstado {end.Estado} \nTelefone: {Telefone} \nCpf: {Cpf} \nRg: {Rg}  \nRenda: {Renda} \nPerfil: {Perfil}".ToString();
+            string situacao = Conta.Aprovado ? "Aprovado" : "Reprovado";
+            return $"Nome: {Nome} \nData de Nascimento: {DataNascimento} \nEndereço: Rua ou Avenida: {end.Rua} \nNúmero: {end.Numero} \nBairro: {end.Bairro} \nCidade: {end.Cidade} \nEstado {end.Estado} \nTelefone: {Telefone} \nCpf: {Cpf} \nRg: {Rg}  \nRenda: {Renda} \nPerfil: {Perfil}\nStatus: {situacao}".ToString();
         }
 
     }

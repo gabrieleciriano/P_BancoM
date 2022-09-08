@@ -60,7 +60,7 @@ namespace Proj_BancoMorangao
         public override string ToString()
         {
             return $"Nome: {Nome} \nCpf: {Cpf} \nRg: {Rg} \nCargo: {Cargo}".ToString();
-        }      
+        }
         public int AvaliarContaCliente(float renda, bool perfil)
         {
             int tipoConta;
@@ -101,13 +101,14 @@ namespace Proj_BancoMorangao
 
         //Método booleano que se CARGO == true, o funcionário (gerente) pode aprovar conta
         //Se CARGO == false, esse funcionário não pode realizar essa operação
-        public bool AprovarConta(bool contaAprovada)
+        public bool AprovarConta(Cliente contaAprovada)
         {
             if (Cargo)
             {
-                string situacaoContaAprovada = contaAprovada ? "Aprovado" : "Reprovado";
+                string situacaoContaAprovada = contaAprovada.Conta.Aprovado ? "Aprovado" : "Reprovado";
+                contaAprovada.Conta.Aprovado = true;
                 Console.WriteLine($" SITUAÇÃO DE CONTA: {situacaoContaAprovada}");
-                return contaAprovada;
+                return contaAprovada.Conta.Aprovado;
 
             }
             else
