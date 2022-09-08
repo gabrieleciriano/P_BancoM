@@ -8,18 +8,12 @@ namespace Proj_BancoMorangao
 
         //Ao declarar um objeto na program, vc consegue ter acesso a ele sem precisar
         //declarar novamente
-        static Agencia agencia = new Agencia(1);
+        static Agencia agencia = new Agencia();
         static List<Cliente> CadCliente = new List<Cliente>();
 
         static void Main(string[] args)
         {
-            //int menu;
-            //Funcionario funcionario = new Funcionario();
-            //ContaCorrente cc = new ContaCorrente();
-            //ContaPoupanca cp = new ContaPoupanca();
-
             MenuPrincipal();
-
 
         }
         static void MenuConta(Cliente cliente)
@@ -30,7 +24,7 @@ namespace Proj_BancoMorangao
 
                 Console.WriteLine("--------------------------------------------------------------------");
                 Console.WriteLine("----------BEM VINDO AO MENU DE ACESSO A CONTA------------------------------");
-                Console.WriteLine("0 - SAIR/ACESSAR O MENU DE CONTA");
+                Console.WriteLine("0 - VOLTAR AO MENU DO CLIENTE");
                 Console.WriteLine("1 - CONSULTAR SALDO DA CONTA");
                 Console.WriteLine("2 - SACAR DA CONTA ");
                 Console.WriteLine("3 - DEPOSITAR NA CONTA");
@@ -45,11 +39,12 @@ namespace Proj_BancoMorangao
                     switch (opc)
                     {
                         case 0:
-                            //chamar um menu..
-                            Console.WriteLine("SAINDO...");
+                            //Chamando o menu...                          
                             MenuCliente();
                             break;
+
                         case 1:
+                            //Consultando o saldo
                             cliente.Conta.ConsultarSaldo();
                             if (cliente.Conta.Saldo == 0)
                             {
@@ -71,6 +66,7 @@ namespace Proj_BancoMorangao
                                 }
                             }
                             break;
+
                         case 2:
                             Console.WriteLine("Informe a quantidade que deseja sacar de sua conta: ");
                             float valor = float.Parse(Console.ReadLine());
@@ -78,6 +74,7 @@ namespace Proj_BancoMorangao
                             //cliente.Conta.ConsultarSaldo();
                             MenuConta(cliente);
                             break;
+
                         case 3:
                             Console.WriteLine("Informe a quantia que deseja depositar em sua conta: ");
                             valor = float.Parse(Console.ReadLine());
@@ -85,11 +82,12 @@ namespace Proj_BancoMorangao
                             //cliente.Conta.ConsultarSaldo();
                             MenuConta(cliente);
                             break;
+
+                        default:
+                            break;
                     }
                 }
             } while (opc != 0);
-
-
         }
         static void MenuCliente()
         {
@@ -99,7 +97,6 @@ namespace Proj_BancoMorangao
             {
 
                 Console.WriteLine("----------BEM VINDO AO MENU DO CLIENTE------------------------------");
-                Console.WriteLine("0 - SAIR");
                 Console.WriteLine("1 - VOLTAR AO MENU PRINCIPAL");
                 Console.WriteLine("2 - SOLICITAR ABERTURA DE CONTA");
                 Console.WriteLine("3 - ACESSAR CONTA");
@@ -109,17 +106,16 @@ namespace Proj_BancoMorangao
                 if (opc < 0 || opc > 3)
                     Console.WriteLine("OPÇÃO INVÁLIDA! Informe um número válido para acessar o menu: ");
                 else
-                {                    
+                {
                     switch (opc)
                     {
-                        case 0:
-                            Console.WriteLine("SAINDO ...");
-                            break;
                         case 1:
+                            //Chamando a função que volta ao menu principal
                             MenuPrincipal();
                             break;
+
                         case 2:
-                            //cadastrou uma solicitação de abertura de conta
+                            //Cadastrando o possível cliente e solicitando uma abertura de conta
                             Cliente cliente = new Cliente();
                             cliente.SolicitarAberturaConta();
                             if (agencia.GetCliente(cliente.Cpf) == null)
@@ -129,25 +125,25 @@ namespace Proj_BancoMorangao
                             }
                             else
                             {
+                                //Condição se tentarem cadastrar um novo cliente com o mesmo CPF de um cliente já existente
                                 Console.WriteLine("JÁ EXISTE UM CLIENTE CADASTRADO COM ESSE CPF");
                             }
                             break;
+
                         case 3:
-                            //primeiro, verificar se o cliente foi aprovado para ter acesso ao 
-                            //menu de conta
-                            //verificar se o cliente existe?                            
-                            Console.WriteLine("Informe o CPF do cliente que deseja acessar a  conta: ");
+                            //Após a conta ser aprovada, o cliente pode ter acesso a ela                                                    
+                            Console.WriteLine("Informe o CPF do cliente que deseja acessar a conta: ");
                             string cpfCliente = Console.ReadLine();
                             cliente = agencia.GetCliente(cpfCliente);
                             if (cliente == null)
                             {
-                                Console.WriteLine("CLIENTE NAO ENCONTRADO");
+                                Console.WriteLine("NÃO FOI POSSÍVEL LOCALIZAR ESSE CLIENTE!");
                                 Console.ReadKey();
                             }
                             else
                             {
-                                //validar se a conta esta aprovada
-                                //vali
+                                //validar se a conta ainda não está aprovada
+
                                 if (cliente.Conta == null)
                                 {
                                     Console.WriteLine("SUA CONTA AINDA NÃO ESTÁ APROVADA!");
@@ -156,17 +152,16 @@ namespace Proj_BancoMorangao
                                 }
                                 else
                                 {
-
+                                    //Permitindo o acesso a conta, que já foi aprovada
                                     if (cliente.Conta.Aprovado)
                                     {
                                         Console.WriteLine("ACESSO CONCEDIDO");
                                         MenuConta(cliente);
-
                                     }
-
                                 }
                             }
                             break;
+
                         default:
                             break;
                     }
@@ -180,12 +175,11 @@ namespace Proj_BancoMorangao
             do
             {
                 Console.Clear();
-                Console.WriteLine("--------------------------------------------------------------------");
-                Console.WriteLine("------------------MENU DO FUNCIONÁRIO REGULAR-----------------------");
-                Console.WriteLine("0 - SAIR");
+                Console.WriteLine("-------------------------------------------------------------------");
+                Console.WriteLine("------------------MENU DO FUNCIONÁRIO REGULAR----------------------");          
                 Console.WriteLine("1 - VOLTAR AO MENU PRINCIPAL");
                 Console.WriteLine("2 - IMPRIMIR CADASTRO DE CLIENTE");
-                Console.WriteLine("--------------------------------------------------------------------");
+                Console.WriteLine("-------------------------------------------------------------------");
                 Console.WriteLine("Digite a opção desejada: ");
                 opc = int.Parse(Console.ReadLine());
                 if (opc < 0 || opc > 2)
@@ -193,18 +187,17 @@ namespace Proj_BancoMorangao
                 else
                 {
                     switch (opc)
-                    {
-                        case 0:
-                            Console.WriteLine("SAINDO...");
-                            break;
+                    {                   
                         case 1:
                             MenuPrincipal();
                             break;
+
                         case 2:
-                            //imprimindo o cadastro do cliente                          
+                            //Imprimindo o cadastro do cliente                          
                             agencia.GetCliente();
                             Console.ReadKey();
                             break;
+
                         default:
                             break;
                     }
@@ -218,30 +211,27 @@ namespace Proj_BancoMorangao
             {
 
                 Console.WriteLine("-------------------------------------------------------------");
-                Console.WriteLine("---------------------MENU DO GERENTE ------------------------");
-                Console.WriteLine("0 - SAIR");
+                Console.WriteLine("-----------------------MENU DO GERENTE ----------------------");           
                 Console.WriteLine("1 - VOLTAR AO MENU PRINCIPAL");
-                Console.WriteLine("2 - CADASTRAR FUNCIONÁRIOS ");
-                Console.WriteLine("3 - IMPRIMIR CADASTRO COM O CARGOS");
+                Console.WriteLine("2 - CADASTRAR FUNCIONÁRIOS");
+                Console.WriteLine("3 - IMPRIMIR CADASTRO COM O CARGO");
                 Console.WriteLine("4 - APROVAR ABERTURA DE CONTA");
                 Console.WriteLine("-------------------------------------------------------------");
                 Console.WriteLine("Digite a opção desejada: ");
                 opc = int.Parse(Console.ReadLine());
-                if (opc < 0 || opc > 5)
+                if (opc < 0 || opc > 4)
                     Console.WriteLine("OPÇÃO INVÁLIDA! Informe um número válido para acessar o menu:");
                 else
                 {
                     Console.Clear();
                     switch (opc)
-                    {
-                        case 0:
-                            Console.WriteLine("SAINDO...");
-                            break;
+                    {                        
                         case 1:
                             MenuPrincipal();
                             break;
+
                         case 2:
-                            //cadastro de funcionário
+                            //Cadastro de funcionário regular ou gerente
                             Funcionario funcionario = new Funcionario();
                             if (agencia.GetFuncionario(funcionario.Cpf) == null)
                             {
@@ -250,25 +240,27 @@ namespace Proj_BancoMorangao
                             }
                             else
                             {
-                                Console.WriteLine("JÁ EXISTE UM FUNCIONÁRIO CADASTRADO COM ESSE CPF");
+                                Console.WriteLine("JÁ EXISTE UM FUNCIONÁRIO CADASTRADO COM ESSE CPF!");
                             }
                             break;
+
                         case 3:
-                            //imprimir cadastro
+                            //Imprimir o cadastro com a condição de cargo booleana
                             agencia.GetFuncionario();
                             Console.ReadKey();
                             break;
+
                         case 4:
-                            //aprovar a solicitação de abertura de conta
-                            Console.WriteLine("Informe o CPF do funcionario que irá aprovar a solicitação de conta: ");
+                            //Aprovar a solicitação de abertura de conta do cliente
+                            Console.WriteLine("Informe o CPF do FUNCIONÁRIO que irá aprovar a solicitação de conta: ");
                             string cpfFuncionario = Console.ReadLine();
                             funcionario = agencia.GetFuncionario(cpfFuncionario);
-                            Console.WriteLine("Informe o CPF do cliente que deseja aprovar a conta: ");
+                            Console.WriteLine("Informe o CPF do CLIENTE que deseja aprovar a conta: ");
                             string cpfCliente = Console.ReadLine();
                             Cliente cliente = agencia.GetCliente(cpfCliente);
                             if (cliente == null)
                             {
-                                Console.WriteLine("CADASTRO DO CLIENTE NÃO FOI ENCONTRADO");
+                                Console.WriteLine("CADASTRO DO CLIENTE NÃO FOI ENCONTRADO!");
 
                             }
                             else
@@ -279,7 +271,7 @@ namespace Proj_BancoMorangao
                                 }
                                 else
                                 {
-                                    Console.WriteLine("GERENTE, deseja aprovar a conta do cliente? 1- SIM 2- NÃO");
+                                    Console.WriteLine("GERENTE, deseja aprovar a conta do cliente? (1- SIM 2- NÃO)");
                                     int escolha = int.Parse(Console.ReadLine());
                                     cliente.Conta = new Conta(funcionario.AvaliarContaCliente(cliente.Renda, cliente.Perfil), agencia);
 
@@ -293,9 +285,7 @@ namespace Proj_BancoMorangao
                                     {
                                         cliente.Conta.Aprovado = funcionario.AprovarConta(false);
                                     }
-
                                 }
-
                             }
                             break;
                         default:
@@ -304,10 +294,6 @@ namespace Proj_BancoMorangao
                 }
             } while (opc != 0);
         }
-
-
-
-
         static void MenuFuncionario()
         {
             //Funcionario funcionario = new Funcionario();
@@ -316,9 +302,8 @@ namespace Proj_BancoMorangao
             Console.Clear();
             Console.WriteLine("-------------------------------------------------------------------------");
             Console.WriteLine("-------------------MENU DO FUNCIONÁRIO-----------------------------------");
-            Console.WriteLine("0 - SAIR");
-            Console.WriteLine("1 - PARA VOLTAR AO MENU PRINCIPAL");
-            Console.WriteLine("INFORME O CARGO QUE IRÁ RECEBER: (2 - FUNCIONÁRIO REGULAR OU 3 - GERENTE)");
+            Console.WriteLine("0 - PARA VOLTAR AO MENU PRINCIPAL");
+            Console.WriteLine("INFORME O CARGO QUE IRÁ RECEBER: (1 - FUNCIONÁRIO REGULAR OU 2 - GERENTE)");
             Console.WriteLine("-------------------------------------------------------------------------");
             Console.WriteLine("Digite a opção: ");
             cargo = int.Parse(Console.ReadLine());
@@ -330,17 +315,16 @@ namespace Proj_BancoMorangao
             switch (cargo)
             {
                 case 0:
-                    Console.WriteLine("SAINDO...");
-                    break;
-                case 1:
                     MenuPrincipal();
                     break;
-                case 2:
+
+                case 1:
                     MenuFuncionarioRegular();
                     break;
-                case 3:
+
+                case 2:
                     MenuFuncionarioGerente();
-                    break;
+                    break;             
             }
             Console.Clear();
         }
@@ -350,6 +334,7 @@ namespace Proj_BancoMorangao
             Console.WriteLine("------------------------------------------------------");
             Console.WriteLine(" BEM VINDO AO BANCO MORANGÃO, COMO PODEMOS TE AJUDAR ?");
             Console.WriteLine("---------------------MADE BY GABS---------------------");
+            Console.WriteLine("0 - SAIR DO PROGRAMA");
             Console.WriteLine(" DIGITE (1 - PARA FUNCIONÁRIO OU 2 - PARA CLIENTE)");
             Console.WriteLine("------------------------------------------------------");
             Console.WriteLine();
@@ -360,14 +345,17 @@ namespace Proj_BancoMorangao
                 switch (opc)
                 {
                     case 0:
-                        Console.WriteLine("SAINDO...");
+                        Environment.Exit(0);                       
                         break;
+
                     case 1:
                         MenuFuncionario();
                         break;
+
                     case 2:
                         MenuCliente();
                         break;
+
                     default:
                         break;
                 }

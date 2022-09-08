@@ -9,8 +9,7 @@ namespace Proj_BancoMorangao
 
         public float Renda { get; set; }
         public bool Perfil { get; set; }
-       
-
+        public Agencia Agencia;
         public Conta Conta;
            
 
@@ -20,9 +19,7 @@ namespace Proj_BancoMorangao
 
 
 
-        }
-        
-
+        }        
         
         public bool Estudante(string ehUniversitario)
         {
@@ -32,25 +29,15 @@ namespace Proj_BancoMorangao
                 _ => false
 
             };
-        }
-        //criar no funcinario um metod aprova conta que vai ter um switch de aprovar conta c
-        //um parametro de string
-        //no program, console write line, gerente...
-        //ler numa variavel e chamar o metodo de Aprovar conta
-        //leitura do AprovarConta == true (Criar uma lista de contas, uma corrente e uma poupança)
-        //add na lista de Contas
-        //criar lkista de conta no cliente
-        //se o func aprovu a conta, falar qual tipo de conta tem: conta corrente e cp
-        //cada cont bool chequeEspecial
-
-
-
+        }   
         public void SolicitarAberturaConta()
         {
             string TipoConta;
             end = new Endereco();
             //conta = new Conta(TipoConta);
-            
+            //Console.WriteLine("Dados da agencia onde o possível cliente será cadastrado:");
+            //Agencia agencia = new Agencia();
+            //Agencia.ImprimirAgencia();
             Console.WriteLine("Informe seu nome: ");
             Nome = Console.ReadLine();
             Console.WriteLine("Informe sua data de nascimento: ");

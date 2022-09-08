@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Proj_BancoMorangao
 {
@@ -13,30 +10,19 @@ namespace Proj_BancoMorangao
 
         public Agencia()
         {
+            this.NumeroAgencia = 1;
+            this.end = new Endereco();
+            end.CadastrarEndereco();
 
         }
         public void ImprimirAgencia()
         {
-            Console.Write("Agencia 001");
-            Console.Write("Endereço : Av. dos morangos gigantes\n N°500 \n Bairro: MorangoVilla\n Cidade: Morangolândia\n Estado: Fadalândia");
+            Console.Write("Agencia Morangão 001");
+            Console.Write("Endereço : Rua Moranguinho \n N°25 \n Bairro: Vila do Morango \n Cidade: Morangolândia\n Estado: São Morango");
         }
-        public void CadastrarAgencia()
-        {
-            end = new Endereco();
-            Console.WriteLine("Informe o número da agência: ");
-            NumeroAgencia = int.Parse(Console.ReadLine());
-            end.CadastrarEndereco();
-        }
-        //public void ImprimirAgencia()
-        //{
-        //    Console.WriteLine($"Número da Agência: {NumeroAgencia}");
-        //    end.ImprimirEndereco();
-        //}
-
-
-        //pensei em cadastrar o funcionario na agencia pq se nao for assim, quem cadastraria ele ?
-
-
+        
+            
+        //Lista genérica para cadastrar clientes na agencia
         List<Cliente> CadCliente = new List<Cliente>();
 
         public void AddListCliente(Cliente cliente)
@@ -49,15 +35,14 @@ namespace Proj_BancoMorangao
 
             if (CadCliente.Count == 0)
             {
-                Console.WriteLine("Não existem clientes cadastrados!");
+                Console.WriteLine("\nNão existem clientes cadastrados!");
             }
             foreach (var cliente in CadCliente)
             {
+                //Imprimindo os dados dos clientes cadastrados
                 Console.WriteLine(cliente + "\n");
 
             }
-
-
         }
         public Cliente GetCliente(string cpf)
         {
@@ -72,10 +57,10 @@ namespace Proj_BancoMorangao
             return null;
         }
 
-        //Lista para cadastrar os funcionários
+        //Lista genérica para cadastrar os funcionários na agencia
         public List<Funcionario> CadFuncionario = new List<Funcionario>();
 
-        //Meotodo para adicionar funcionário cadastrado na lista
+        //Metodo para adicionar funcionário cadastrado na lista
         public void AddListFuncionario(Funcionario funcionario)
         {
             CadFuncionario.Add(funcionario);
@@ -84,7 +69,7 @@ namespace Proj_BancoMorangao
         {
             if(CadFuncionario.Count == 0)
             {
-                Console.WriteLine("Não existem funcionários cadastrados!");
+                Console.WriteLine("\nNão existem funcionários cadastrados!");
 
             }
             foreach (var funcionario in CadFuncionario)
@@ -93,7 +78,7 @@ namespace Proj_BancoMorangao
             }
         }
 
-        //Método para retornar objeto funcionario do tipo gerente p aprovar a conta
+        //Método para retornar um funcionário baseado em seu cpf p aprovar a conta
         public Funcionario GetFuncionario(string cpf)
         {
             foreach (var funcionario in CadFuncionario)
@@ -108,9 +93,7 @@ namespace Proj_BancoMorangao
         }
         public Agencia(int numero)
         {
-
             this.NumeroAgencia = numero;
-
 
         }
     }

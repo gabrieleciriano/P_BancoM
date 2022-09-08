@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Proj_BancoMorangao
 {
     internal class Funcionario : Pessoa
     {
         public bool Cargo { get; set; }
+        public Agencia Agencia;
 
-        public int agencia;
+        //public int agencia;
 
 
         //Lista criada para adicionar os clientes se forem aprovados p abrir a conta (?)
@@ -30,33 +28,12 @@ namespace Proj_BancoMorangao
             return null;
         }
 
-        //public void AprovarConta()
-        //{
-        //    foreach (var cliente in AprovaCliente)
-        //    {
-        //        if (cliente.Conta.Aprovado == false)
-        //        {
-        //            Console.WriteLine("Deseja aprovar a conta ? 1 - SIM 2 - NÃO");
-        //            int aprova = int.Parse(Console.ReadLine());
-        //            if (aprova == 1)
-        //            {
-        //                Console.WriteLine("CONTA APROVADA!");
-        //                //gerar um numero aleatorio aq
-        //                //instanciar uma nova conta e gerar o número
-        //                cliente.Conta.Aprovado = true;
-        //            }
-        //            else
-        //            {
-        //                Console.WriteLine("CONTA REPROVADA");
-        //            }
-        //        }
-        //    }
-
-        //}
-
         //REALIZANDO O CADASTRO DO FUNCIONÁRIO DENTRO DE UM MÉTODO CONSTRUTOR
         public Funcionario()
         {
+            //Console.WriteLine("Agencia onde irá trabalhar: ");
+            //Agencia agencia = new Agencia();
+            //Agencia.ImprimirAgencia();
             Console.WriteLine("Efetuando o cadastro do funcionário...");
             Console.WriteLine("Informe seu nome: ");
             this.Nome = Console.ReadLine();
@@ -83,42 +60,35 @@ namespace Proj_BancoMorangao
         public override string ToString()
         {
             return $"Nome: {Nome} \nCpf: {Cpf} \nRg: {Rg} \nCargo: {Cargo}".ToString();
-        }
-
-        //avaliar o tipo de conta do cliente
-        //não sei se vou usar esse metodo
-        //funcionario regular
+        }      
         public int AvaliarContaCliente(float renda, bool perfil)
         {
             int tipoConta;
 
             if (perfil)
             {
-                Console.WriteLine("Entendido, voce é estudante!");
-                Console.WriteLine("Sua solicitação para abrir uma conta será avaliada !");
+                Console.WriteLine("\nEntendido, voce é ESTUDANTE!");
+                Console.WriteLine("\nSua solicitação para abrir uma conta será avaliada !");
+                Console.WriteLine("\nCliente, ao avaliarmos seu perfil, você poderá receber uma conta (1- UNIVERSITÁRIA)");
                 tipoConta = 1;
             }
             else
             {
-                Console.WriteLine("Entendido, você não é estudante!");
+                Console.WriteLine("\nEntendido, você NÃO é ESTUDANTE!");
                 Console.WriteLine("Sua solicitação para abrir uma conta será avaliada !");
-                if (renda <= 5000)
+                if (renda <= 3000)
                 {
-
-                    Console.WriteLine("Cliente, irá receber uma conta do tipo 2 - NORMAL!");
+                    Console.WriteLine("\nCliente, ao avaliarmos seu perfil, você poderá receber uma conta (2 - NORMAL)");
                     tipoConta = 2;
-
                 }
                 else
                 {
-                    Console.WriteLine("Cliente, irá receber uma conta do tipo 3 - VIP!");
+                    Console.WriteLine("Cliente, ao avaliarmos o seu perfil, você poderá receber uma conta (3 - VIP)");
                     tipoConta = 3;
-
                 }
             }
             return tipoConta;
         }
-
         public bool Estudante(string ehUniversitario)
         {
             return ehUniversitario switch
@@ -129,14 +99,13 @@ namespace Proj_BancoMorangao
             };
         }
 
-
-        //outro metodo p aprovar a conta que eu fiz mas n sei se esta certo
-        //metodo ta dando errado...
+        //Método booleano que se CARGO == true, o funcionário (gerente) pode aprovar conta
+        //Se CARGO == false, esse funcionário não pode realizar essa operação
         public bool AprovarConta(bool contaAprovada)
         {
-            if(Cargo)
+            if (Cargo)
             {
-                string situacaoContaAprovada = contaAprovada ? "Aprovado" : "Reprovado";               
+                string situacaoContaAprovada = contaAprovada ? "Aprovado" : "Reprovado";
                 Console.WriteLine($" SITUAÇÃO DE CONTA: {situacaoContaAprovada}");
                 return contaAprovada;
 
@@ -147,7 +116,7 @@ namespace Proj_BancoMorangao
                 return false;
             }
 
-        }       
+        }
     }
 }
 
